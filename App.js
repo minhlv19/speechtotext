@@ -6,6 +6,7 @@ import {
   SafeAreaView,
   Image,
   TouchableHighlight,
+  TextInput,
   ScrollView,
 } from 'react-native';
 import Voice from 'react-native-voice';
@@ -96,7 +97,7 @@ class App extends Component {
     });
 
     try {
-      await Voice.start('en-US');
+      await Voice.start('vn-VN');
     } catch (e) {
       //eslint-disable-next-line
       console.error(e);
@@ -143,55 +144,14 @@ class App extends Component {
 
   render() {
     return (
-      <SafeAreaView style={{ flex: 1 }}>
+      <SafeAreaView style={{ flex: 1 ,backgroundColor: "#ffa600"}}>
         <View style={styles.container}>
-          <Text style={styles.welcome}>
-            Speech to Text
-          </Text>
-          <Text style={styles.instructions}>
-            Press mike to start Recognition
-          </Text>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingVertical: 10,
-            }}>
-            <Text
-              style={{
-                flex: 1,
-                textAlign: 'center',
-                color: '#B0171F',
-              }}>{`Started: ${this.state.started}`}</Text>
-            <Text
-              style={{
-                flex: 1,
-                textAlign: 'center',
-                color: '#B0171F',
-              }}>{`End: ${this.state.end}`}</Text>
-          </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingVertical: 10,
-            }}>
-            <Text
-              style={{
-                flex: 1,
-                textAlign: 'center',
-                color: '#B0171F',
-              }}>{`Pitch \n ${this.state.pitch}`}</Text>
-            <Text
-              style={{
-                flex: 1,
-                textAlign: 'center',
-                color: '#B0171F',
-              }}>{`Error \n ${this.state.error}`}</Text>
-          </View>
+          <Image source={require('./logo_footer_3.png')}
+          style={{width:200,height: 200}}/>
+
           <TouchableHighlight
             onPress={this._startRecognizing}
-            style={{ marginVertical: 20 }}>
+            style={{ }}>
             <Image
               style={styles.button}
               source={require('./button.png')}
@@ -202,9 +162,9 @@ class App extends Component {
               textAlign: 'center',
               color: '#B0171F',
               marginBottom: 1,
-              fontWeight: '700',
+
             }}>
-            Partial Results
+            Kết quả một phần
           </Text>
           <ScrollView>
             {this.state.partialResults.map((result, index) => {
@@ -214,44 +174,46 @@ class App extends Component {
                   style={{
                     textAlign: 'center',
                     color: '#B0171F',
-                    marginBottom: 1,
-                    fontWeight: '700',
+
                   }}>
                   {result}
                 </Text>
               );
             })}
           </ScrollView>
-          <Text style={styles.stat}>Results</Text>
+          <Text style={styles.stat}
+          > Các kết quả</Text>
           <ScrollView style={{ marginBottom: 42 }}>
             {this.state.results.map((result, index) => {
               return (
-                <Text key={`result-${index}`} style={styles.stat}>
+                <Text  key={`result-${index}`} style={styles.stat}>
                   {result}
                 </Text>
               );
             })}
           </ScrollView>
+
           <View
             style={{
               flexDirection: 'row',
               alignItems: 'space-between',
               position: 'absolute',
               bottom: 0,
+              backgroundColor: '#003abf'
             }}>
             <TouchableHighlight
               onPress={this._stopRecognizing}
-              style={{ flex: 1, backgroundColor: 'red' }}>
+              style={{ flex: 1, backgroundColor: '#003abf' }}>
               <Text style={styles.action}>Stop</Text>
             </TouchableHighlight>
             <TouchableHighlight
               onPress={this._cancelRecognizing}
-              style={{ flex: 1, backgroundColor: 'red' }}>
+              style={{ flex: 1, backgroundColor: '#003abf' }}>
               <Text style={styles.action}>Cancel</Text>
             </TouchableHighlight>
             <TouchableHighlight
               onPress={this._destroyRecognizer}
-              style={{ flex: 1, backgroundColor: 'red' }}>
+              style={{ flex: 1, backgroundColor: '#003abf' }}>
               <Text style={styles.action}>Destroy</Text>
             </TouchableHighlight>
           </View>
@@ -268,9 +230,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
+
     flexDirection: 'column',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#ffa600',
   },
   welcome: {
     fontSize: 20,
@@ -292,7 +255,7 @@ const styles = StyleSheet.create({
   },
   stat: {
     textAlign: 'center',
-    color: '#B0171F',
+    color: '#003abf',
     marginBottom: 1,
     marginTop: 30,
   },
