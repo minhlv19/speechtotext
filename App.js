@@ -7,6 +7,7 @@ import {
   Image,
   TouchableHighlight,
   TextInput,
+  Button,
   ScrollView,
 } from 'react-native';
 import Voice from 'react-native-voice';
@@ -19,6 +20,7 @@ class App extends Component {
     started: '',
     results: [],
     partialResults: [],
+    clipboardContent:null,
   };
 
   constructor(props) {
@@ -123,6 +125,16 @@ class App extends Component {
       console.error(e);
     }
   };
+  writeToClipboard = async () => {
+    //To copy the text to clipboard
+    await Clipboard.setString(this.state.results);
+    alert('Copied to Clipboard!');
+  };
+  readFromClipboard = async () => {
+    //To get the text from clipboard
+    const clipboardContent = await Clipboard.getString();
+    this.setState({ clipboardContent });
+  };
 
   _destroyRecognizer = async () => {
     //Destroys the current SpeechRecognizer instance
@@ -177,10 +189,21 @@ class App extends Component {
 
                   }}>
                   {result}
+
                 </Text>
+
               );
             })}
+
           </ScrollView>
+          <Button
+            onPress={this.writeToClipboard}
+            title="Copy to Clipboard"/>
+          <Button
+            onPress={this.readFromClipboard}
+            title="Paste from Clipboard"
+          />
+          <Text>{this.state.clipboardContent}</Text>
           <Text style={styles.stat}
           > Các kết quả</Text>
           <ScrollView style={{ marginBottom: 42 }}>
